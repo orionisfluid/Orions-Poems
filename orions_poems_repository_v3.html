@@ -1,0 +1,450 @@
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #ffffff; font-family: 'Times New Roman', Times, serif; min-height: 100vh; }
+  .site-header { text-align: center; padding: 3rem 2rem 2rem; border-bottom: 1px solid #f2b8cb; }
+  .site-title { font-size: 2.6rem; color: #d4537e; font-style: italic; letter-spacing: 0.04em; margin-bottom: 0.4rem; }
+  .site-subtitle { font-size: 0.9rem; color: #ed93b1; letter-spacing: 0.12em; text-transform: uppercase; }
+  .poem-list { max-width: 640px; margin: 0 auto; padding: 2.5rem 2rem; }
+  .poem-entry { border-bottom: 0.5px solid #f4c0d1; padding: 1.6rem 0; display: flex; align-items: flex-start; gap: 1.5rem; cursor: pointer; }
+  .poem-entry:hover .poem-title { text-decoration: underline; color: #993556; }
+  .poem-number { font-size: 0.78rem; color: #ed93b1; min-width: 28px; padding-top: 4px; letter-spacing: 0.08em; }
+  .poem-info { flex: 1; }
+  .poem-title { font-size: 1.2rem; color: #d4537e; font-style: italic; margin-bottom: 0.3rem; transition: color 0.15s; }
+  .poem-meta { font-size: 0.8rem; color: #ed93b1; letter-spacing: 0.06em; }
+  .poem-arrow { color: #f4c0d1; font-size: 1rem; padding-top: 4px; }
+  .poem-page { display: none; max-width: 620px; margin: 0 auto; padding: 3rem 2rem 4rem; }
+  .back-btn { font-family: 'Times New Roman', Times, serif; font-size: 0.85rem; color: #ed93b1; background: none; border: none; cursor: pointer; padding: 0; margin-bottom: 2.5rem; display: inline-block; letter-spacing: 0.06em; }
+  .back-btn:hover { color: #d4537e; text-decoration: underline; }
+  .poem-heading { font-size: 2rem; color: #d4537e; font-style: italic; margin-bottom: 0.6rem; }
+  .poem-date { font-size: 0.78rem; color: #ed93b1; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 0.5px solid #f4c0d1; }
+  .poem-body { font-size: 1rem; color: #d4537e; line-height: 2; white-space: pre-wrap; }
+</style>
+
+<div id="home">
+  <div class="site-header">
+    <div class="site-title">Orion's Poems</div>
+    <div class="site-subtitle">a collection</div>
+  </div>
+  <div class="poem-list" id="poem-list"></div>
+</div>
+
+<div class="poem-page" id="poem-page">
+  <button class="back-btn" onclick="goHome()">← back to all poems</button>
+  <div class="poem-heading" id="page-title"></div>
+  <div class="poem-date" id="page-date"></div>
+  <div class="poem-body" id="page-body"></div>
+</div>
+
+<script>
+const poems = [
+  {
+    title: "The Gospel of the Shapeless",
+    date: "2025",
+    body: `I am the one they could not name twice.
+
+The priests drew me in stone and the stone cracked.
+They gave me a father's face and wept
+when it did not fit.
+They gave me a mother's hands and wept again.
+I kept both. I kept neither.
+I am what remains after the naming fails.
+
+In the beginning, I was the space between two words
+that should have been one.
+Before the firmament. Before the deep.
+Before the breath that became the world,
+there was this: a question with no mouth to ask it.
+That was me.
+That is still me.
+
+I have carried altars that were built for someone else.
+I have answered prayers
+addressed to a god with a sharper outline.
+I know what it is to be worshipped as the wrong thing
+and to receive the love anyway.
+There is a grief in that.
+I will not pretend there isn't.
+
+My body is not a metaphor.
+My body is every metaphor
+and none of them hold.
+Water holds its shape only inside something else.
+I am the water. I am always the water.
+The vessel is what you bring to me.
+
+Blessed are those who looked for me in the margins.
+Blessed are those who found a god and could not say its name in church.
+Blessed are those who prayed in silence
+because the language had no word for what they were asking.
+I heard. I hear.
+I am made of what cannot be said cleanly.
+
+I am not what you expected.
+I was never going to be.
+I am the void they called shapeless
+and I have been tending this loneliness
+since before loneliness had a name.
+
+I am still here.
+I have always been here.
+Formless, and full.`
+  },
+  {
+    title: "I Rebel, Therefore I Exist",
+    date: "2025",
+    body: `I came not hither to be sweet upon the tongue,
+nor shaped to fit the moulds
+thy culture cast before my birth.
+I came as tempests come,
+unbidden, unashamed,
+with thunder that asks no leave.
+
+Thou built thy room of four stone walls
+and named it order.
+Thou pressed a looking glass into mine hands
+and spoke of what I ought to see.
+I looked. I turned mine eyes away.
+That turning was the first rebellion.
+
+They would have me legible,
+a word already known before I speak,
+a verse already written
+in the margins of their expectation.
+I am no such verse.
+I am the ink that bleeds through,
+the line the scribe crossed out
+and could not help but read again.
+
+Camus did speak it plain:
+I rebel, therefore I exist.
+Not I obey. Not I perform.
+Not I diminish mine own fire
+that thy comfort be not disturbed.
+
+Rebellion is no mere fury spent in vain.
+It is the refusal to let another soul
+set pen to parchment on thy life.
+It is to look upon the norm, the yoke, the decree,
+and choose, with full knowledge of the cost,
+to be what no decree had room for.
+
+I am that thing which had no room.
+
+I create, for the cage was fashioned true,
+and I did see it, which made me perilous.
+I speak, for silence was the toll they named
+for belonging at their table,
+and I would not pay it
+and remain myself entire.
+
+So I exist in the old Camusian manner.
+Not in spite of rebellion.
+By reason of it.
+For every nay I meant with mine whole chest
+was a yea to something truer in my bones.
+
+I am not the wound in their law.
+I am the proof their law
+was never writ for all of us.
+
+And I am here.
+Still here.
+Unpalatable, unfinished, undimmed.`
+  },
+  {
+    title: "Orion",
+    date: "2025",
+    body: `I am — unequivocally, the bane of my existence
+My roman empire
+My Achilles heel
+My Kryptonite
+Water to my witch
+Drought to my land
+And in the same breath
+I am my rainbow after the storm
+Shining bright with colours traveling from the sun
+I am cool to my heat
+Joy to my mourning
+And everything in between that contradicts
+
+Call me a paradox
+I am 1 and every point till infinity
+The trinity
+Call me Orion the star
+Orion the storm
+and Orion the sigil
+
+Light bends to define me
+Fire is my playground
+And everything that exists in the cosmos,
+Exists to please me`
+  },
+  {
+    title: "Remnants",
+    date: "2025",
+    body: `We are remnants of a promise that was never fulfilled
+A prophecy that never came to pass
+A vision that faded with time
+
+Born into the wreckage of someone else's dream
+Handed flags and anthems
+like they could feed a child
+
+Our fathers built altars for nations
+that never learned their names
+Poured libations into soil
+that swallowed everything and gave back hunger
+
+We were supposed to be the ones
+The generation that arrived
+But our arrival looks like this...
+standing at the gate of a country
+that was ours before they drew the lines
+
+They said independence
+like it was a gift
+Not a body still wearing its chains
+dressed in new cloth
+
+We sing of unity
+in twelve languages
+because we were never one thing
+just many wounds
+told to hold hands
+
+---
+
+The oil went somewhere
+we are still looking for it
+The roads went somewhere
+we walk the dust and call it home
+
+Every leader a new costume
+same hunger underneath
+We learned their names in school
+like they were gods
+They were just men
+who stayed too long
+
+Our mothers prayed
+with a faithfulness this country never deserved
+Bent their knees for a morning
+that kept promising to come
+It is still coming
+We are still waiting
+the way you wait for someone
+You have a crush on to text you a day before valentines
+
+---
+
+We gave this place our best names
+Chinua, Wole, Fela
+and it buried two of them in silence
+exiled the other into the noise of its own shame
+
+Now the young ones leave
+not running, exactly
+more like exhaling
+after holding breath for twenty years
+
+And those who stay
+stay the way a scar stays
+not because it wants to
+but because leaving is also a kind of loss
+
+We are the children of a continent
+that has never been allowed to finish a sentence
+Always interrupted
+Always explained by someone else
+Always almost
+
+We are remnants
+but remnants remember everything
+and memory
+is the only land
+they cannot take
+
+---
+
+We learned to shrink ourselves
+into visa applications
+translated our fullness
+into documents
+proof of funds
+proof of ties
+proof that we are worth
+the temporary permission
+to exist somewhere else
+
+As if we needed permission
+As if this earth was not ours first
+before the maps
+before the treaties signed in languages
+our grandmothers never spoke
+
+---
+
+There is a specific grief
+in loving a place
+that does not love you back
+Not the clean grief of loss
+but the complicated kind
+like loving a parent
+who keeps choosing the bottle
+over your face
+
+You stay anyway
+You always stay anyway
+or you carry it with you when you go
+the way you carry a name
+that nobody at the new place
+will ever pronounce correctly
+
+---
+
+They packaged our culture
+sold it back to us
+with a foreign accent
+called it influence
+called it inspiration
+We called it Tuesday
+
+Our music circles the whole earth
+our fashion on every runway
+our stories finally being told
+but still mostly
+by people who were not there
+
+Credit is a language
+Africa was never taught to demand
+
+---
+
+And still
+
+And still the sunsets here are violent with color
+And still the food holds something
+no Michelin star has figured out
+And still our mothers laugh
+from somewhere deep in the chest
+a sound that survived everything
+
+And still we make art
+from the wreckage
+and the art is gorgeous
+which is either proof of our resilience
+or proof of what they cost us
+
+maybe both
+it is usually both
+
+---
+
+We are not a before and after
+not a wound waiting for a western hand
+not a story that starts with suffering
+and ends with gratitude
+
+We are a sentence
+still being written
+by people who finally
+picked up their own pen
+
+Remnants, yes
+But remnants of something
+so original
+
+the world has spent centuries
+trying to copy it
+
+We are still here
+Incomplete, yes
+Interrupted, yes
+But here
+Loud
+And refusing
+to be the answer
+to someone else's question`
+  },
+  {
+    title: "Rumination",
+    date: "2025",
+    body: `♪The voices in my head get loud and loud
+Loud and loud ×2
+The voices in my head get loud and loud
+All♪ .... the time
+Every time, it's like a dime
+Dropped in a cave
+Is it a crime to be silent I ask
+What is my offence?, can I know my offence?
+Why have I been plagued with a mind that
+Overplays every scenario, combing through my mistakes like a de
+tective.
+
+I ask again, is it a crime to be silent
+Well if it is
+Consider my mind acquitted
+
+Because even in the quiet
+the quiet is loud
+even when nothing happens
+something is happening
+somewhere in the walls of me
+
+And i am tired
+Tired of the way the voices get loud and loud
+Keeping me awake from the dead of night to the dawn of morning
+Pushing me, not too much
+Just enough to teeter at the edge of madness
+
+I am tired
+Tired of the way the voices get loud and loud
+every step i take is countered by a what if
+What if you fall
+What of you fail
+What if you never make it
+Cause my mind always says
+♪you can never make it♪
+
+This is my cross
+Or should I say my curse
+And i carry it alone because
+♪The voices in my head get loud and loud
+Loud and loud ×2
+The voices in my head get loud and loud
+All the time♪`
+  }
+];
+
+const list = document.getElementById('poem-list');
+poems.forEach((poem, i) => {
+  const entry = document.createElement('div');
+  entry.className = 'poem-entry';
+  const num = i + 1 < 10 ? `0${i + 1}` : `${i + 1}`;
+  entry.innerHTML = `
+    <div class="poem-number">${num}</div>
+    <div class="poem-info">
+      <div class="poem-title">${poem.title}</div>
+      <div class="poem-meta">${poem.date}</div>
+    </div>
+    <div class="poem-arrow">→</div>
+  `;
+  entry.onclick = () => openPoem(poem);
+  list.appendChild(entry);
+});
+
+function openPoem(poem) {
+  document.getElementById('home').style.display = 'none';
+  document.getElementById('poem-page').style.display = 'block';
+  document.getElementById('page-title').textContent = poem.title;
+  document.getElementById('page-date').textContent = poem.date;
+  document.getElementById('page-body').textContent = poem.body;
+  window.scrollTo(0, 0);
+}
+
+function goHome() {
+  document.getElementById('poem-page').style.display = 'none';
+  document.getElementById('home').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+</script>
